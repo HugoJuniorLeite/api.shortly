@@ -11,7 +11,7 @@ export async function signUpValidation(req, res, next) {
 
     if (error) {
         const errors = error.details.map((detail) => detail.message)
-        return res.status(400).send({ errors })
+        return res.status(422).send({ errors })
     }
 
     const dataExist = await db.query(`SELECT * FROM users WHERE email = $1`, [user.email]);
@@ -31,7 +31,7 @@ export async function signInValidation(req, res, next) {
     try {
         const user = await db.query(`SELECT * FROM users WHERE email= $1`, [email])
  
-        if (user.rowCount === 0) { return res.sendStatus(401) }
+        if (user.rowCount === 0) { return res.sendStatus(422) }
  
         const passwordIsOk = bcrypt.compareSync(password, user.rows[0].password)
  

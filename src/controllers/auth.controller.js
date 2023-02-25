@@ -22,7 +22,7 @@ export async function signIn(req, res) {
 
     try {
         await db.query(`INSERT INTO sessions ("userId", token) VALUES ($1, $2)`, [id, token])
-        return res.status(201).send({ token })
+        return res.status(200).send({ token })
     } catch (error) {
         res.status(500).send(error.message)
     }
