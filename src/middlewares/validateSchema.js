@@ -1,13 +1,13 @@
-export function validateSchema(schema) {
+// export function validateSchema(schema) {
 
-    return (req, res, next) => {
-      const { error } = schema.validate(req.body, { abortEarly: false });
-     // console.log(error)
-      if (error) {
-        return res.status(500).send(error.details.map((detail) => detail.message));
-      }
-  
-      next();
-    };
+//     return (req, res, next) => {
+//       const { error } = schema.validate(req.body, { abortEarly: false });
     
-  }
+//       if (error) {
+//         return res.status(422).send(error.details.map((detail) => detail.message));
+//       }
+  
+//       next();
+//     };
+    
+//   }
