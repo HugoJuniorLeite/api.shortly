@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import { db } from '../config/database.js';
+import { signInSchema } from '../schemas/signInSchema.js';
 import { signUpSchema } from '../schemas/signUpSchema.js';
 import { urlSchema } from '../schemas/urlSchema.js';
 
@@ -26,12 +27,19 @@ export async function signUpValidation(req, res, next) {
 }
 
 export async function signInValidation(req, res, next) {
-
     const { email, password } = req.body
+    
+    const { error } = signInSchema.validate(user)
+
+    if (error) {
+        const errors = error.details.map((detail) => detail.message)
+        return res.status(422).send({ errors })
+    }
+
     try {
         const user = await db.query(`SELECT * FROM users WHERE email= $1`, [email])
  
-        if (user.rowCount === 0) { return res.sendStatus(422) }
+        if (user.rowCount === 0) { return res.sendStatus(401) }
  
         const passwordIsOk = bcrypt.compareSync(password, user.rows[0].password)
  

@@ -18,4 +18,21 @@ const text = res.locals.user
     } catch (error) {
         res.status(500).send(error.message)
     }
+
+}
+
+export async function printUrls(req,res){
+    const id = req.params.id
+
+    try {
+    const isUrl = await db.query(`SELECT * FROM urls WHERE id = $1`, [id])
+       
+        if(isUrl.rowCount <=0) {return res.sendStatus(404)}
+
+res.status(200).send({id:isUrl.rows[0].id, shortUrl: isUrl.rows[0].shortUrl, url: isUrl.rows[0].url})
+
+    } catch (error) {
+        res.status(500).send(error.message)
+    }
+        
 }
