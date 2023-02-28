@@ -76,12 +76,13 @@ export async function destructionUrl(req, res){
     
     const isUser = await db.query(`SELECT * FROM sessions WHERE token = $1`, [token])
             
-console.log(isUrl.rows[0].id,"urlId")
+console.log(isUrl.rows[0].userId,"urlId")
 console.log(isUser.rows[0].userId,"userId")
 
-    if(isUrl.rows[0].id !== isUser.rows[0].userId){return res.sendStatus(430)}
+    if(isUrl.rows[0].userId !== isUser.rows[0].userId){return res.sendStatus(430)}
 
 
+    await db.query(`DELETE FROM "shortUrls" WHERE "urlId"=$1`, [isUrl.rows[0].id])
     await db.query(`DELETE FROM urls WHERE id=$1`, [id])
 
     return res.sendStatus(204)
