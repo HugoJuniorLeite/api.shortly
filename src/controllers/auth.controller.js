@@ -17,11 +17,14 @@ export async function signUp(req, res) {
 
 export async function signIn(req, res) {
 
-    const { id, name } = res.locals.user
+    const user = res.locals.user
+ 
+    //console.log(user,"controller")
+
     const token = uuidv4()
 
     try {
-        await db.query(`INSERT INTO sessions ("userId", token) VALUES ($1, $2)`, [id, token])
+        await db.query(`INSERT INTO sessions ("userId", token) VALUES ($1, $2)`, [user.id, token])
         return res.status(200).send({ token })
     } catch (error) {
         res.status(500).send(error.message)
