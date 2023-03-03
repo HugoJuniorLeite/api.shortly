@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 14.6 (Ubuntu 14.6-0ubuntu0.22.04.1)
--- Dumped by pg_dump version 14.6 (Ubuntu 14.6-0ubuntu0.22.04.1)
+-- Dumped from database version 14.7 (Ubuntu 14.7-0ubuntu0.22.04.1)
+-- Dumped by pg_dump version 14.7 (Ubuntu 14.7-0ubuntu0.22.04.1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -28,7 +28,7 @@ CREATE TABLE public.sessions (
     id integer NOT NULL,
     "userId" integer NOT NULL,
     token text NOT NULL,
-    "createAt" timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+    "createdAt" timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
 
 
@@ -53,40 +53,6 @@ ALTER SEQUENCE public.sessions_id_seq OWNED BY public.sessions.id;
 
 
 --
--- Name: shortUrls; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public."shortUrls" (
-    id integer NOT NULL,
-    "urlId" integer NOT NULL,
-    "shortUrl" text NOT NULL,
-    "linksCount" integer DEFAULT 0 NOT NULL,
-    "visitCount" integer DEFAULT 0 NOT NULL,
-    "createAt" timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
-);
-
-
---
--- Name: shortUrls_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public."shortUrls_id_seq"
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: shortUrls_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public."shortUrls_id_seq" OWNED BY public."shortUrls".id;
-
-
---
 -- Name: urls; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -94,7 +60,9 @@ CREATE TABLE public.urls (
     id integer NOT NULL,
     url text NOT NULL,
     "userId" integer,
-    "createdAt" timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+    "createdAt" timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    "visitCount" integer DEFAULT 0 NOT NULL,
+    "shortUrl" text NOT NULL
 );
 
 
@@ -127,7 +95,9 @@ CREATE TABLE public.users (
     name character varying(50) NOT NULL,
     email text NOT NULL,
     password text NOT NULL,
-    "createAt" timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+    "createAt" timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    "visitCount" integer DEFAULT 0 NOT NULL,
+    "linksCount" integer DEFAULT 0 NOT NULL
 );
 
 
@@ -159,13 +129,6 @@ ALTER TABLE ONLY public.sessions ALTER COLUMN id SET DEFAULT nextval('public.ses
 
 
 --
--- Name: shortUrls id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public."shortUrls" ALTER COLUMN id SET DEFAULT nextval('public."shortUrls_id_seq"'::regclass);
-
-
---
 -- Name: urls id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -183,67 +146,50 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 -- Data for Name: sessions; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.sessions VALUES (36, 27, 'bb041bcb-1c7d-4209-bc63-cb18bda26e6d', '2023-02-26 22:37:25.800313');
-INSERT INTO public.sessions VALUES (37, 27, '08fa6faf-e4d3-4544-9701-14c9aadda6b0', '2023-02-27 22:07:55.850576');
-INSERT INTO public.sessions VALUES (38, 27, '98d94cad-9a0f-400f-afc6-3c444f2660bf', '2023-02-27 22:09:03.98937');
-
-
---
--- Data for Name: shortUrls; Type: TABLE DATA; Schema: public; Owner: -
---
-
-INSERT INTO public."shortUrls" VALUES (1, 61, 'pfYvqbse', 0, 0, '2023-02-26 23:22:35.622552');
-INSERT INTO public."shortUrls" VALUES (2, 61, 'Mj9KSsuO', 0, 0, '2023-02-26 23:30:51.525251');
-INSERT INTO public."shortUrls" VALUES (3, 61, 'NoZ0JynS', 0, 0, '2023-02-26 23:33:05.341687');
+INSERT INTO public.sessions VALUES (39, 28, 'd53cff5c-a044-4e0c-9916-f8b3d0491267', '2023-03-02 21:16:57.086885');
+INSERT INTO public.sessions VALUES (40, 29, '6d633203-3156-4310-9f3e-9fdafb3f50c7', '2023-03-02 22:23:33.418294');
 
 
 --
 -- Data for Name: urls; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.urls VALUES (61, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5EubENGUWySnBOxaEU1pOazGsc_e7F_jwrs44RJpc0Q&s', 27, '2023-02-26 23:16:31.256125');
-INSERT INTO public.urls VALUES (62, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5EubENGUWySnBOxaEU1pOazGsc_e7F_jwrs44RJpc0Q&s', 27, '2023-02-26 23:17:33.13068');
-INSERT INTO public.urls VALUES (63, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5EubENGUWySnBOxaEU1pOazGsc_e7F_jwrs44RJpc0Q&s', 27, '2023-02-26 23:18:06.535054');
-INSERT INTO public.urls VALUES (64, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5EubENGUWySnBOxaEU1pOazGsc_e7F_jwrs44RJpc0Q&s', 27, '2023-02-26 23:19:33.076975');
-INSERT INTO public.urls VALUES (65, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5EubENGUWySnBOxaEU1pOazGsc_e7F_jwrs44RJpc0Q&s', 27, '2023-02-26 23:21:50.042491');
-INSERT INTO public.urls VALUES (66, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5EubENGUWySnBOxaEU1pOazGsc_e7F_jwrs44RJpc0Q&s', 27, '2023-02-26 23:22:35.615522');
-INSERT INTO public.urls VALUES (67, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5EubENGUWySnBOxaEU1pOazGsc_e7F_jwrs44RJpc0Q&s', 27, '2023-02-26 23:30:51.519004');
-INSERT INTO public.urls VALUES (68, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5EubENGUWySnBOxaEU1pOazGsc_e7F_jwrs44RJpc0Q&s', 27, '2023-02-26 23:33:05.326236');
+INSERT INTO public.urls VALUES (95, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5EubENGUWySnBOxaEU1pOazGsc_e7F_jwrs44RJpc0Q&s', 28, '2023-03-02 23:31:52.179456', 0, 'CrW_ocGy');
+INSERT INTO public.urls VALUES (98, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5EubENGUWySnBOxaEU1pOazGsc_e7F_jwrs44RJpc0Q&s', 28, '2023-03-02 23:33:19.722489', 0, 'Bn6RrOnw');
+INSERT INTO public.urls VALUES (102, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5EubENGUWySnBOxaEU1pOazGsc_e7F_jwrs44RJpc0Q&s', 28, '2023-03-02 23:37:16.813563', 0, 'KPWOQ-42');
+INSERT INTO public.urls VALUES (103, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5EubENGUWySnBOxaEU1pOazGsc_e7F_jwrs44RJpc0Q&s', 28, '2023-03-02 23:37:18.187442', 0, '7Asfjyff');
+INSERT INTO public.urls VALUES (94, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5EubENGUWySnBOxaEU1pOazGsc_e7F_jwrs44RJpc0Q&s', 28, '2023-03-02 22:22:19.768171', 3, 'LEVrFtv4');
+INSERT INTO public.urls VALUES (96, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5EubENGUWySnBOxaEU1pOazGsc_e7F_jwrs44RJpc0Q&s', 28, '2023-03-02 23:32:39.531643', 0, 'FRCp3quM');
+INSERT INTO public.urls VALUES (97, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5EubENGUWySnBOxaEU1pOazGsc_e7F_jwrs44RJpc0Q&s', 28, '2023-03-02 23:32:41.281748', 0, 'WlM537No');
 
 
 --
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.users VALUES (27, 'Lorenzoo', 'Lolo@lo.com.br', '$2b$10$SMX98mqKpRxYRo10p3wxdemXVBWU1kTmX1mT2w.oDv8zt9MhFVmRu', '2023-02-26 22:37:14.87308');
+INSERT INTO public.users VALUES (29, 'Lorenzoo', 'Lolo@lolo.com.br', '$2b$10$vHUGABSGYOBqBXZqQtvB2eyvPIFpAMSjlXDSY7dxq8PRF/QfHfZGy', '2023-03-02 22:23:23.293935', 0, 0);
+INSERT INTO public.users VALUES (28, 'Lorenzoo', 'Lolo@lo.com.br', '$2b$10$xSXCyLqleD9/CLgkSY.vm.qtUkaIMM3tEHf.Hz7J.abSSQ/.I72xy', '2023-03-02 21:16:53.068438', 3, 3);
 
 
 --
 -- Name: sessions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.sessions_id_seq', 38, true);
-
-
---
--- Name: shortUrls_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('public."shortUrls_id_seq"', 3, true);
+SELECT pg_catalog.setval('public.sessions_id_seq', 40, true);
 
 
 --
 -- Name: urls_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.urls_id_seq', 68, true);
+SELECT pg_catalog.setval('public.urls_id_seq', 103, true);
 
 
 --
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 27, true);
+SELECT pg_catalog.setval('public.users_id_seq', 29, true);
 
 
 --
@@ -260,22 +206,6 @@ ALTER TABLE ONLY public.sessions
 
 ALTER TABLE ONLY public.sessions
     ADD CONSTRAINT sessions_token_key UNIQUE (token);
-
-
---
--- Name: shortUrls shortUrls_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public."shortUrls"
-    ADD CONSTRAINT "shortUrls_pkey" PRIMARY KEY (id);
-
-
---
--- Name: shortUrls shortUrls_shortUrl_key; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public."shortUrls"
-    ADD CONSTRAINT "shortUrls_shortUrl_key" UNIQUE ("shortUrl");
 
 
 --
@@ -308,14 +238,6 @@ ALTER TABLE ONLY public.users
 
 ALTER TABLE ONLY public.sessions
     ADD CONSTRAINT "sessions_userId_fkey" FOREIGN KEY ("userId") REFERENCES public.users(id);
-
-
---
--- Name: shortUrls shortUrls_urlId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public."shortUrls"
-    ADD CONSTRAINT "shortUrls_urlId_fkey" FOREIGN KEY ("urlId") REFERENCES public.urls(id);
 
 
 --
