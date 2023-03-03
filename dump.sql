@@ -95,7 +95,7 @@ CREATE TABLE public.users (
     name character varying(50) NOT NULL,
     email text NOT NULL,
     password text NOT NULL,
-    "createAt" timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    "createdAt" timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
     "visitCount" integer DEFAULT 0 NOT NULL,
     "linksCount" integer DEFAULT 0 NOT NULL
 );

@@ -19,8 +19,6 @@ export async function signIn(req, res) {
 
     const user = res.locals.user
  
-    //console.log(user,"controller")
-
     const token = uuidv4()
 
     try {
