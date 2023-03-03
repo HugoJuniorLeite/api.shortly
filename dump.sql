@@ -95,9 +95,9 @@ CREATE TABLE public.users (
     name character varying(50) NOT NULL,
     email text NOT NULL,
     password text NOT NULL,
-    "createAt" timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
     "visitCount" integer DEFAULT 0 NOT NULL,
-    "linksCount" integer DEFAULT 0 NOT NULL
+    "linksCount" integer DEFAULT 0 NOT NULL,
+    "createdAt" timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
 
 
@@ -148,6 +148,7 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 
 INSERT INTO public.sessions VALUES (39, 28, 'd53cff5c-a044-4e0c-9916-f8b3d0491267', '2023-03-02 21:16:57.086885');
 INSERT INTO public.sessions VALUES (40, 29, '6d633203-3156-4310-9f3e-9fdafb3f50c7', '2023-03-02 22:23:33.418294');
+INSERT INTO public.sessions VALUES (41, 30, 'ee85de5f-9919-4247-a656-cdc441ba0495', '2023-03-03 00:17:21.509628');
 
 
 --
@@ -157,39 +158,37 @@ INSERT INTO public.sessions VALUES (40, 29, '6d633203-3156-4310-9f3e-9fdafb3f50c
 INSERT INTO public.urls VALUES (95, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5EubENGUWySnBOxaEU1pOazGsc_e7F_jwrs44RJpc0Q&s', 28, '2023-03-02 23:31:52.179456', 0, 'CrW_ocGy');
 INSERT INTO public.urls VALUES (98, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5EubENGUWySnBOxaEU1pOazGsc_e7F_jwrs44RJpc0Q&s', 28, '2023-03-02 23:33:19.722489', 0, 'Bn6RrOnw');
 INSERT INTO public.urls VALUES (102, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5EubENGUWySnBOxaEU1pOazGsc_e7F_jwrs44RJpc0Q&s', 28, '2023-03-02 23:37:16.813563', 0, 'KPWOQ-42');
-INSERT INTO public.urls VALUES (103, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5EubENGUWySnBOxaEU1pOazGsc_e7F_jwrs44RJpc0Q&s', 28, '2023-03-02 23:37:18.187442', 0, '7Asfjyff');
-INSERT INTO public.urls VALUES (94, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5EubENGUWySnBOxaEU1pOazGsc_e7F_jwrs44RJpc0Q&s', 28, '2023-03-02 22:22:19.768171', 3, 'LEVrFtv4');
-INSERT INTO public.urls VALUES (96, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5EubENGUWySnBOxaEU1pOazGsc_e7F_jwrs44RJpc0Q&s', 28, '2023-03-02 23:32:39.531643', 0, 'FRCp3quM');
-INSERT INTO public.urls VALUES (97, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5EubENGUWySnBOxaEU1pOazGsc_e7F_jwrs44RJpc0Q&s', 28, '2023-03-02 23:32:41.281748', 0, 'WlM537No');
+INSERT INTO public.urls VALUES (104, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5EubENGUWySnBOxaEU1pOazGsc_e7F_jwrs44RJpc0Q&s', 30, '2023-03-03 00:17:56.590434', 2, 'gRDhHnPu');
 
 
 --
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.users VALUES (29, 'Lorenzoo', 'Lolo@lolo.com.br', '$2b$10$vHUGABSGYOBqBXZqQtvB2eyvPIFpAMSjlXDSY7dxq8PRF/QfHfZGy', '2023-03-02 22:23:23.293935', 0, 0);
-INSERT INTO public.users VALUES (28, 'Lorenzoo', 'Lolo@lo.com.br', '$2b$10$xSXCyLqleD9/CLgkSY.vm.qtUkaIMM3tEHf.Hz7J.abSSQ/.I72xy', '2023-03-02 21:16:53.068438', 3, 3);
+INSERT INTO public.users VALUES (29, 'Lorenzoo', 'Lolo@lolo.com.br', '$2b$10$vHUGABSGYOBqBXZqQtvB2eyvPIFpAMSjlXDSY7dxq8PRF/QfHfZGy', 0, 0, '2023-03-03 00:04:00.63775');
+INSERT INTO public.users VALUES (30, 'Lorenzoo', 'Lola@lolo.com.br', '$2b$10$Y1aFvdxlw2G49TyXJvMaFOxkYjJbefZaGSUA8YDehHzKE42oVpwFq', 2, 1, '2023-03-03 00:16:50.619786');
+INSERT INTO public.users VALUES (28, 'Lorenzoo', 'Lolo@lo.com.br', '$2b$10$xSXCyLqleD9/CLgkSY.vm.qtUkaIMM3tEHf.Hz7J.abSSQ/.I72xy', 3, -1, '2023-03-03 00:04:00.63775');
 
 
 --
 -- Name: sessions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.sessions_id_seq', 40, true);
+SELECT pg_catalog.setval('public.sessions_id_seq', 41, true);
 
 
 --
 -- Name: urls_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.urls_id_seq', 103, true);
+SELECT pg_catalog.setval('public.urls_id_seq', 104, true);
 
 
 --
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 29, true);
+SELECT pg_catalog.setval('public.users_id_seq', 30, true);
 
 
 --
