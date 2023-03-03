@@ -35,7 +35,7 @@ GrOUP BY users.id
   const result = userUrls.rows[0]?.shortenedUrls.map((d) => {
     return {
       id: d.f1,
-      ShortUrl: d.f2,
+      shortUrl: d.f2,
       url: d.f3,
       visitCount: d.f4,
     };
