@@ -44,10 +44,10 @@ export async function openShortUrl(req, res) {
 
            if (isShortUrl.rowCount <= 0) { return res.sendStatus(404) }
            await db.query(`UPDATE urls SET "visitCount" = "visitCount"+1 WHERE id =$1`, [isShortUrl.rows[0].id])
-        // await db.query(`UPDATE urls SET "visitCount" = $1 WHERE id =$2`, [isShortUrl.rows[0].visitCount + 1, isShortUrl.rows[0].id])
+        await db.query(`UPDATE urls SET "visitCount" = $1 WHERE id =$2`, [isShortUrl.rows[0].visitCount + 1, isShortUrl.rows[0].id])
         await db.query(`UPDATE users SET "visitCount" = $1 WHERE id =$2`, [isShortUrl.rows[0].visitCount + 1, isShortUrl.rows[0].userId])
 
-        res.redirect(isShortUrl.rows[0].url)
+        return res.redirect(isShortUrl.rows[0].url)
 
     } catch (error) {
         return res.status(500).send(error.message)
