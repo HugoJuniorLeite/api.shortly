@@ -25,7 +25,7 @@ SET default_table_access_method = heap;
 --
 
 CREATE TABLE public.sessions (
-    id integer NOT NULL,
+    id serial primary key,
     "userId" integer NOT NULL,
     token text NOT NULL,
     "createdAt" timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
@@ -57,7 +57,7 @@ ALTER SEQUENCE public.sessions_id_seq OWNED BY public.sessions.id;
 --
 
 CREATE TABLE public.urls (
-    id integer NOT NULL,
+   id serial primary key,
     url text NOT NULL,
     "userId" integer,
     "createdAt" timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
@@ -91,7 +91,7 @@ ALTER SEQUENCE public.urls_id_seq OWNED BY public.urls.id;
 --
 
 CREATE TABLE public.users (
-    id integer NOT NULL,
+   id serial primary key,
     name character varying(50) NOT NULL,
     email text NOT NULL,
     password text NOT NULL,
