@@ -4,7 +4,7 @@ import dotenv from 'dotenv'
 
 import routers from './routers/index.routers.js';
 
-dotenv.config()
+dotenv.config();
 
 const app =express()
 app.use(express.json())
